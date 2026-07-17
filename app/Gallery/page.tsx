@@ -131,16 +131,18 @@ export default function GalleryPage() {
 
   const categories = ['all', ...new Set(galleryItems.map(item => item.category))]
 
-  const getCategoryEmoji = (cat :string ) => {
-    const emojis = {
-      plantation: '🌳',
-      forest: '🌲',
-      school: '🏫',
-      community: '🏘️',
-      workshop: '🔧'
-    }
-    return emojis[cat] || '📸'
+ type Category = 'plantation' | 'forest' | 'school' | 'community' | 'workshop'
+
+const getCategoryEmoji = (cat: Category) => {
+  const emojis: Record<Category, string> = {
+    plantation: '🌳',
+    forest: '🌲',
+    school: '🏫',
+    community: '🏘️',
+    workshop: '🔧'
   }
+  return emojis[cat] || '📸'
+}
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
