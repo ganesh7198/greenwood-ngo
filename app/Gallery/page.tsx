@@ -2,14 +2,16 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
+type Category = 'plantation' | 'forest' | 'school' | 'community' | 'workshop'
+
 export default function GalleryPage() {
-  const [filter, setFilter] = useState('all')
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [filter, setFilter] = useState<string>('all')
+  const [selectedImage, setSelectedImage] = useState<any>(null)
 
   const galleryItems = [
     {
       id: 1,
-      category: 'plantation',
+      category: 'plantation' as Category,
       image: 'https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=800&h=800&fit=crop',
       location: 'Mumbai, Maharashtra',
       work: 'Tree Plantation Drive',
@@ -19,7 +21,7 @@ export default function GalleryPage() {
     },
     {
       id: 2,
-      category: 'forest',
+      category: 'forest' as Category,
       image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=800&fit=crop',
       location: 'Western Ghats, Kerala',
       work: 'Forest Restoration',
@@ -29,7 +31,7 @@ export default function GalleryPage() {
     },
     {
       id: 3,
-      category: 'school',
+      category: 'school' as Category,
       image: 'https://images.unsplash.com/photo-1574958269340-fa927503f3dd?w=800&h=800&fit=crop',
       location: 'Delhi NCR',
       work: 'School Eco Workshop',
@@ -39,7 +41,7 @@ export default function GalleryPage() {
     },
     {
       id: 4,
-      category: 'community',
+      category: 'community' as Category,
       image: 'https://images.unsplash.com/photo-1466692477390-1231d9f1dc3a?w=800&h=800&fit=crop',
       location: 'Bangalore, Karnataka',
       work: 'Community Garden',
@@ -49,7 +51,7 @@ export default function GalleryPage() {
     },
     {
       id: 5,
-      category: 'plantation',
+      category: 'plantation' as Category,
       image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&h=800&fit=crop',
       location: 'Sundarbans, West Bengal',
       work: 'Mangrove Plantation',
@@ -59,7 +61,7 @@ export default function GalleryPage() {
     },
     {
       id: 6,
-      category: 'workshop',
+      category: 'workshop' as Category,
       image: 'https://images.unsplash.com/photo-1532996128724-d0f3d08ea0c3?w=800&h=800&fit=crop',
       location: 'Chennai, Tamil Nadu',
       work: 'Waste Management Workshop',
@@ -69,7 +71,7 @@ export default function GalleryPage() {
     },
     {
       id: 7,
-      category: 'plantation',
+      category: 'plantation' as Category,
       image: 'https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?w=800&h=800&fit=crop',
       location: 'Pune, Maharashtra',
       work: 'Urban Plantation',
@@ -79,7 +81,7 @@ export default function GalleryPage() {
     },
     {
       id: 8,
-      category: 'forest',
+      category: 'forest' as Category,
       image: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=800&h=800&fit=crop',
       location: 'Himalayas, Uttarakhand',
       work: 'Forest Conservation',
@@ -89,7 +91,7 @@ export default function GalleryPage() {
     },
     {
       id: 9,
-      category: 'school',
+      category: 'school' as Category,
       image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=800&fit=crop',
       location: 'Hyderabad, Telangana',
       work: 'Eco Club Program',
@@ -99,7 +101,7 @@ export default function GalleryPage() {
     },
     {
       id: 10,
-      category: 'community',
+      category: 'community' as Category,
       image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&h=800&fit=crop',
       location: 'Jaipur, Rajasthan',
       work: 'Green Park Development',
@@ -109,7 +111,7 @@ export default function GalleryPage() {
     },
     {
       id: 11,
-      category: 'plantation',
+      category: 'plantation' as Category,
       image: 'https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?w=800&h=800&fit=crop',
       location: 'Ahmedabad, Gujarat',
       work: 'Tree Plantation Drive',
@@ -119,7 +121,7 @@ export default function GalleryPage() {
     },
     {
       id: 12,
-      category: 'workshop',
+      category: 'workshop' as Category,
       image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&h=800&fit=crop',
       location: 'Kolkata, West Bengal',
       work: 'Awareness Campaign',
@@ -129,20 +131,18 @@ export default function GalleryPage() {
     }
   ]
 
-  const categories = ['all', ...new Set(galleryItems.map(item => item.category))]
+  const categories: (Category | 'all')[] = ['all', ...new Set(galleryItems.map(item => item.category))] as (Category | 'all')[]
 
- type Category = 'plantation' | 'forest' | 'school' | 'community' | 'workshop'
-
-const getCategoryEmoji = (cat: Category) => {
-  const emojis: Record<Category, string> = {
-    plantation: '🌳',
-    forest: '🌲',
-    school: '🏫',
-    community: '🏘️',
-    workshop: '🔧'
+  const getCategoryEmoji = (cat: Category | 'all') => {
+    const emojis: Record<Category, string> = {
+      plantation: '🌳',
+      forest: '🌲',
+      school: '🏫',
+      community: '🏘️',
+      workshop: '🔧'
+    }
+    return cat !== 'all' ? emojis[cat] : '📸'
   }
-  return emojis[cat] || '📸'
-}
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -230,7 +230,7 @@ const getCategoryEmoji = (cat: Category) => {
                     : 'bg-white text-gray-700 hover:bg-green-50 hover:shadow-md border border-gray-200'
                 }`}
               >
-                {category !== 'all' && getCategoryEmoji(category)}
+                {getCategoryEmoji(category)}
                 {category.charAt(0).toUpperCase() + category.slice(1)}
               </button>
             ))}
