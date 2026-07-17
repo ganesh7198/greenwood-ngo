@@ -131,9 +131,12 @@ export default function GalleryPage() {
     }
   ]
 
-  const categories: (Category | 'all')[] = ['all', ...new Set(galleryItems.map(item => item.category))] as (Category | 'all')[]
+  // Get unique categories with proper typing
+  const uniqueCategories = [...new Set(galleryItems.map(item => item.category))] as Category[]
+  const categories: (Category | 'all')[] = ['all', ...uniqueCategories]
 
-  const getCategoryEmoji = (cat: Category | 'all') => {
+  // Handle both Category and 'all' strings
+  const getCategoryEmoji = (cat: string) => {
     const emojis: Record<Category, string> = {
       plantation: '🌳',
       forest: '🌲',
@@ -141,7 +144,7 @@ export default function GalleryPage() {
       community: '🏘️',
       workshop: '🔧'
     }
-    return cat !== 'all' ? emojis[cat] : '📸'
+    return (cat !== 'all' && cat in emojis) ? emojis[cat as Category] : '📸'
   }
 
   return (
