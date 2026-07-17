@@ -131,7 +131,7 @@ export default function GalleryPage() {
 
   const categories = ['all', ...new Set(galleryItems.map(item => item.category))]
 
-  const getCategoryEmoji = (cat) => {
+  const getCategoryEmoji = (cat :string ) => {
     const emojis = {
       plantation: '🌳',
       forest: '🌲',
